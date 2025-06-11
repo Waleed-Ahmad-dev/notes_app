@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken } from "@/utils/jwt";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
      const token = request.cookies.get("token")?.value;
 
      if (!token) {
@@ -9,10 +8,20 @@ export function middleware(request: NextRequest) {
      }
 
      try {
-          verifyToken(token); // Will throw if invalid
-          return NextResponse.next();
+          const verifyUrl = new URL("/api/verify-token", request.url);
+          verifyUrl.searchParams.set("token", token);
+
+          const response = await fetch(verifyUrl);
+
+          if (response.ok) {
+               const data = await response.json();
+               if (data.valid) {
+                    return NextResponse.next();
+               }
+          }
+          return NextResponse.redirect(new URL("/login", request.url));
      } catch (err) {
-          console.error("Invalid token:", err);
+          console.error("Error verifying token:", err);
           return NextResponse.redirect(new URL("/login", request.url));
      }
 }
