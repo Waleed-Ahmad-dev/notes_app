@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { getAuthUserId } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: any) {
+     const params = context.params as { id: string };
      const userId = await getAuthUserId();
      if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
