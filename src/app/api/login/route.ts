@@ -7,28 +7,33 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
      try {
-          const { username, password } = await req.json();
+          const { identifier, password } = await req.json();
 
-          if (!username || !password) {
+          if (!identifier || !password) {
                return NextResponse.json({ error: "Missing credentials" }, { status: 400 });
           }
 
-          const user = await prisma.user.findUnique({ where: { username } });
+          let user;
+          if (identifier.includes('@')) {
+               user = await prisma.user.findUnique({ where: { email: identifier } });
+          } else {
+               user = await prisma.user.findUnique({ where: { username: identifier } });
+          }
 
           if (!user) {
-               return NextResponse.json({ error: "User not found" }, { status: 404 });
+               return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
           }
 
           const isValid = await bcrypt.compare(password, user.password);
-
           if (!isValid) {
-               return NextResponse.json({ error: "Invalid password" }, { status: 401 });
+               return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
           }
 
-          // Generate JWT
-          const token = generateToken({ userId: user.id });
+          if (!user.verified) {
+               return NextResponse.json({ error: "Please verify your email before logging in" }, { status: 403 });
+          }
 
-          // Set it in HTTP-only cookie
+          const token = generateToken({ userId: user.id });
           const response = NextResponse.json({ message: "Login successful" });
           response.cookies.set("token", token, {
                httpOnly: true,
