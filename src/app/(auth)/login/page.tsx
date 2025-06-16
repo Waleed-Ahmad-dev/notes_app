@@ -1,6 +1,6 @@
 "use client";
 
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
@@ -22,11 +22,10 @@ const inputVariants = {
      visible: { opacity: 1, y: 0 },
 };
 
-export default function SignUpPage() {
-     const [username, setUsername] = useState('');
-     const [email, setEmail] = useState('');
+export default function LoginPage() {
+     const [identifier, setIdentifier] = useState('');
      const [password, setPassword] = useState('');
-     const [errors, setErrors] = useState({ username: '', email: '', password: '' });
+     const [errors, setErrors] = useState({ identifier: '', password: '', general: '' });
      const [isSubmitting, setIsSubmitting] = useState(false);
 
      const handleSubmit = async (e: React.FormEvent) => {
@@ -38,32 +37,29 @@ export default function SignUpPage() {
           }
           setIsSubmitting(true);
           try {
-               const response = await fetch('/api/register', {
+               const response = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email, password }),
+                    body: JSON.stringify({ identifier, password }),
                });
                if (!response.ok) {
                     const data = await response.json();
-                    setErrors({ ...errors, [data.field]: data.error });
+                    setErrors({ ...errors, general: data.error });
                } else {
-                    alert('Registration successful! Please check your email to verify your account.');
+                    alert('Login successful!');
                }
           } catch (error) {
                console.error(error);
-               alert('An error occurred. Please try again.');
+               setErrors({ ...errors, general: 'An error occurred. Please try again.' });
           } finally {
                setIsSubmitting(false);
           }
      };
 
      const validate = () => {
-          const newErrors = { username: '', email: '', password: '' };
-          if (!username) newErrors.username = 'Username is required';
-          if (!email) newErrors.email = 'Email is required';
-          else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Invalid email format';
+          const newErrors = { identifier: '', password: '', general: '' };
+          if (!identifier) newErrors.identifier = 'Username or email is required';
           if (!password) newErrors.password = 'Password is required';
-          else if (password.length < 8) newErrors.password = 'Password must be at least 8 characters';
           return newErrors;
      };
 
@@ -77,33 +73,20 @@ export default function SignUpPage() {
                          onSubmit={handleSubmit}
                     >
                          <motion.h1 variants={inputVariants} className="text-3xl font-bold mb-6 text-center text-white">
-                              Sign Up
+                              Login
                          </motion.h1>
                          <motion.div variants={inputVariants} className="mb-4">
-                              <label htmlFor="username" className="block text-sm font-medium mb-1 text-gray-300">
-                                   Username
+                              <label htmlFor="identifier" className="block text-sm font-medium mb-1 text-gray-300">
+                                   Username or Email
                               </label>
                               <Input
-                                   id="username"
+                                   id="identifier"
                                    type="text"
-                                   value={username}
-                                   onChange={(e: { target: { value: SetStateAction<string>; }; }) => setUsername(e.target.value)}
+                                   value={identifier}
+                                   onChange={(e) => setIdentifier(e.target.value)}
                                    className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md"
                               />
-                              {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
-                         </motion.div>
-                         <motion.div variants={inputVariants} className="mb-4">
-                              <label htmlFor="email" className="block text-sm font-medium mb-1 text-gray-300">
-                                   Email
-                              </label>
-                              <Input
-                                   id="email"
-                                   type="email"
-                                   value={email}
-                                   onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}
-                                   className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md"
-                              />
-                              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                              {errors.identifier && <p className="text-red-500 text-sm mt-1">{errors.identifier}</p>}
                          </motion.div>
                          <motion.div variants={inputVariants} className="mb-6">
                               <label htmlFor="password" className="block text-sm font-medium mb-1 text-gray-300">
@@ -113,7 +96,7 @@ export default function SignUpPage() {
                                    id="password"
                                    type="password"
                                    value={password}
-                                   onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}
+                                   onChange={(e) => setPassword(e.target.value)}
                                    className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md"
                               />
                               {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
@@ -130,7 +113,7 @@ export default function SignUpPage() {
                          </motion.div>
                     </motion.form>
                     <p className="mt-4 text-center text-gray-400">
-                         Already have an account? <Link href="/login" className="text-blue-400 hover:underline">Log in</Link>
+                         Don&apos;t have an account? <Link href="/signup" className="text-blue-400 hover:underline">Sign up</Link>
                     </p>
                </div>
           </div>
