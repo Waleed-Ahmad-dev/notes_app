@@ -1,7 +1,6 @@
 "use client";
 
 import { LayoutGrid, User } from "lucide-react";
-import Head from "next/head";
 import { useState, useEffect } from "react";
 import { ArrowRight, BookOpen, Calendar, ChevronDown, ChevronUp, Cloud, Edit, FileText, Folder, GitHub, Instagram, Linkedin, Mail, Menu, Moon, Plus, Search, Star, Sun, Tag, X } from "react-feather";
 import { AnimatePresence, motion } from 'framer-motion';
@@ -71,13 +70,6 @@ export default function ModernNotesApp() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <Head>
-        <title>Modern Notes App</title>
-        <meta name="description" content="Organize your thoughts effortlessly" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      {/* Navigation */}
       <motion.nav 
         className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm dark:bg-gray-800/80 dark:shadow-gray-900/50"
         initial={{ opacity: 0, y: -20 }}
