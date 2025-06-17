@@ -24,6 +24,11 @@ const inputVariants = {
      visible: { opacity: 1, y: 0 },
 };
 
+const otpSlotVariants = {
+     hidden: { opacity: 0, scale: 0.8 },
+     visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+};
+
 export default function VerifyEmailPage() {
      const [otp, setOtp] = useState('');
      const [email, setEmail] = useState('');
@@ -89,7 +94,7 @@ export default function VerifyEmailPage() {
                          <motion.h1 variants={inputVariants} className="text-3xl font-bold mb-6 text-center text-white">
                               Verify Your Email
                          </motion.h1>
-                         <motion.p variants={inputVariants} className="text-gray-300 mb-4 text-center">
+                         <motion.p variants={inputVariants} className="text-gray-300 mb-6 text-center">
                               Enter the 6-digit OTP sent to {email || 'your email'}.
                          </motion.p>
                          <motion.div variants={inputVariants} className="mb-6 flex justify-center">
@@ -98,13 +103,15 @@ export default function VerifyEmailPage() {
                                    value={otp}
                                    onChange={(value) => setOtp(value)}
                               >
-                                   <InputOTPGroup>
-                                        <InputOTPSlot index={0} className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md" />
-                                        <InputOTPSlot index={1} className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md" />
-                                        <InputOTPSlot index={2} className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md" />
-                                        <InputOTPSlot index={3} className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md" />
-                                        <InputOTPSlot index={4} className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md" />
-                                        <InputOTPSlot index={5} className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md" />
+                                   <InputOTPGroup className="gap-2">
+                                        {[...Array(6)].map((_, index) => (
+                                             <motion.div key={index} variants={otpSlotVariants}>
+                                                  <InputOTPSlot
+                                                       index={index}
+                                                       className="w-12 h-12 text-lg font-semibold text-white bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:bg-gray-600"
+                                                  />
+                                             </motion.div>
+                                        ))}
                                    </InputOTPGroup>
                               </InputOTP>
                          </motion.div>
