@@ -2,11 +2,12 @@
 
 import { LayoutGrid, User } from "lucide-react";
 import Head from "next/head";
-import { useState } from "react";
-import { ArrowRight, BookOpen, Calendar, ChevronDown, ChevronUp, Cloud, Edit, FileText, Folder, GitHub, Instagram, Linkedin, Mail, Menu, Plus, Search, Star, Tag, X } from "react-feather";
+import { useState, useEffect } from "react";
+import { ArrowRight, BookOpen, Calendar, ChevronDown, ChevronUp, Cloud, Edit, FileText, Folder, GitHub, Instagram, Linkedin, Mail, Menu, Moon, Plus, Search, Star, Sun, Tag, X } from "react-feather";
 import { AnimatePresence, motion } from 'framer-motion';
 
 export default function ModernNotesApp() {
+  const [darkMode, setDarkMode] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
   const [notes, setNotes] = useState([
@@ -27,6 +28,15 @@ export default function ModernNotesApp() {
     { id: 'ideas', name: 'Ideas', icon: <Star size={18} />, count: notes.filter(n => n.category === 'ideas').length },
     { id: 'travel', name: 'Travel', icon: <Calendar size={18} />, count: notes.filter(n => n.category === 'travel').length },
   ];
+
+  // Apply dark mode class to body
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   const toggleStar = (id: number) => {
     setNotes(notes.map(note => 
@@ -60,7 +70,7 @@ export default function ModernNotesApp() {
     : notes.filter(note => note.category === activeTab);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <Head>
         <title>Modern Notes App</title>
         <meta name="description" content="Organize your thoughts effortlessly" />
@@ -69,7 +79,7 @@ export default function ModernNotesApp() {
 
       {/* Navigation */}
       <motion.nav 
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm dark:bg-gray-800/80 dark:shadow-gray-900/50"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -79,39 +89,57 @@ export default function ModernNotesApp() {
             <div className="bg-indigo-600 w-8 h-8 rounded-lg flex items-center justify-center">
               <BookOpen size={18} className="text-white" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-800">Notion<span className="text-indigo-600">Notes</span></h1>
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Notion<span className="text-indigo-600 dark:text-indigo-400">Notes</span></h1>
           </div>
           
           <div className="hidden md:flex space-x-6 items-center">
-            <a href="#features" className="text-gray-600 hover:text-indigo-600 transition-colors">Features</a>
-            <a href="#how-it-works" className="text-gray-600 hover:text-indigo-600 transition-colors">How It Works</a>
-            <a href="#testimonials" className="text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors flex items-center">
+            <a href="#features" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors">Features</a>
+            <a href="#how-it-works" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors">How It Works</a>
+            <a href="#testimonials" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors">Testimonials</a>
+            
+            {/* Dark Mode Toggle */}
+            <button 
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+            >
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            
+            <button className="bg-indigo-600 dark:bg-indigo-700 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors flex items-center">
               Get Started <ArrowRight size={16} className="ml-2" />
             </button>
           </div>
           
-          <button 
-            className="md:hidden text-gray-600"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center space-x-4 md:hidden">
+            <button 
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-300"
+            >
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            
+            <button 
+              className="text-gray-600 dark:text-gray-300"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
         
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <motion.div 
-            className="md:hidden bg-white py-4 px-4 border-t"
+            className="md:hidden bg-white dark:bg-gray-800 py-4 px-4 border-t dark:border-gray-700"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
           >
             <div className="flex flex-col space-y-3">
-              <a href="#features" className="text-gray-600 hover:text-indigo-600 py-2">Features</a>
-              <a href="#how-it-works" className="text-gray-600 hover:text-indigo-600 py-2">How It Works</a>
-              <a href="#testimonials" className="text-gray-600 hover:text-indigo-600 py-2">Testimonials</a>
-              <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+              <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">Features</a>
+              <a href="#how-it-works" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">How It Works</a>
+              <a href="#testimonials" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">Testimonials</a>
+              <button className="bg-indigo-600 dark:bg-indigo-700 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors">
                 Get Started
               </button>
             </div>
@@ -204,16 +232,16 @@ export default function ModernNotesApp() {
               {/* Sidebar */}
               <div className="md:w-1/4">
                 <motion.div 
-                  className="bg-white rounded-xl shadow-lg p-6 sticky top-24"
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 p-6 sticky top-24"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                 >
                   <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-bold text-gray-800">Categories</h2>
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-white">Categories</h2>
                     <button 
                       onClick={() => setCreateNoteVisible(true)}
-                      className="bg-indigo-600 text-white p-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                      className="bg-indigo-600 dark:bg-indigo-700 text-white p-2 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors"
                     >
                       <Plus size={18} />
                     </button>
@@ -225,18 +253,18 @@ export default function ModernNotesApp() {
                         key={category.id}
                         className={`flex justify-between items-center w-full p-3 rounded-lg transition-colors ${
                           activeTab === category.id 
-                            ? 'bg-indigo-50 text-indigo-600' 
-                            : 'hover:bg-gray-100'
+                            ? 'bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300' 
+                            : 'hover:bg-gray-100 dark:hover:bg-gray-700'
                         }`}
                         onClick={() => setActiveTab(category.id)}
                       >
                         <div className="flex items-center space-x-3">
-                          <span className={`${activeTab === category.id ? 'text-indigo-600' : 'text-gray-500'}`}>
+                          <span className={`${activeTab === category.id ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400'}`}>
                             {category.icon}
                           </span>
-                          <span>{category.name}</span>
+                          <span className="text-gray-700 dark:text-gray-300">{category.name}</span>
                         </div>
-                        <span className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
+                        <span className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded-full">
                           {category.count}
                         </span>
                       </button>
@@ -244,12 +272,12 @@ export default function ModernNotesApp() {
                   </div>
                   
                   <div className="mt-8">
-                    <h3 className="font-medium text-gray-700 mb-3">Tags</h3>
+                    <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-3">Tags</h3>
                     <div className="flex flex-wrap gap-2">
                       {['Important', 'To-Do', 'Ideas', 'Meeting', 'Personal'].map(tag => (
                         <span 
                           key={tag}
-                          className="bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full"
+                          className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm px-3 py-1 rounded-full"
                         >
                           {tag}
                         </span>
@@ -262,46 +290,46 @@ export default function ModernNotesApp() {
               {/* Notes Grid */}
               <div className="md:w-3/4">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-800">
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
                     {categories.find(c => c.id === activeTab)?.name || 'All Notes'}
                   </h2>
                   <div className="relative">
                     <input 
                       type="text" 
                       placeholder="Search notes..." 
-                      className="bg-gray-100 rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                      className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500"
                     />
-                    <Search size={18} className="absolute left-3 top-2.5 text-gray-400" />
+                    <Search size={18} className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500" />
                   </div>
                 </div>
                 
                 <AnimatePresence>
                   {createNoteVisible && (
                     <motion.div 
-                      className="bg-white rounded-xl shadow-lg p-6 mb-6"
+                      className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 p-6 mb-6"
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                     >
-                      <h3 className="font-bold text-lg mb-4">Create New Note</h3>
+                      <h3 className="font-bold text-lg mb-4 dark:text-white">Create New Note</h3>
                       <div className="space-y-4">
                         <input
                           type="text"
                           placeholder="Title"
-                          className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                          className="w-full p-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                           value={newNote.title}
                           onChange={(e) => setNewNote({...newNote, title: e.target.value})}
                         />
                         <textarea
                           placeholder="Content"
                           rows={4}
-                          className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                          className="w-full p-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                           value={newNote.content}
                           onChange={(e) => setNewNote({...newNote, content: e.target.value})}
                         />
                         <div className="flex justify-between">
                           <select
-                            className="bg-gray-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                            className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500"
                             value={newNote.category}
                             onChange={(e) => setNewNote({...newNote, category: e.target.value})}
                           >
@@ -312,13 +340,13 @@ export default function ModernNotesApp() {
                           </select>
                           <div className="space-x-3">
                             <button 
-                              className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300"
+                              className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600"
                               onClick={() => setCreateNoteVisible(false)}
                             >
                               Cancel
                             </button>
                             <button 
-                              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+                              className="bg-indigo-600 dark:bg-indigo-700 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600"
                               onClick={addNote}
                             >
                               Create
@@ -332,17 +360,17 @@ export default function ModernNotesApp() {
                 
                 {filteredNotes.length === 0 ? (
                   <motion.div 
-                    className="bg-white rounded-xl shadow-lg p-12 text-center"
+                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 p-12 text-center"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                   >
-                    <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Edit size={24} className="text-indigo-600" />
+                    <div className="bg-indigo-100 dark:bg-indigo-900/40 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Edit size={24} className="text-indigo-600 dark:text-indigo-400" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">No notes found</h3>
-                    <p className="text-gray-600 mb-6">Create your first note to get started</p>
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">No notes found</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-6">Create your first note to get started</p>
                     <button 
-                      className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700"
+                      className="bg-indigo-600 dark:bg-indigo-700 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600"
                       onClick={() => setCreateNoteVisible(true)}
                     >
                       Create Note
@@ -353,7 +381,7 @@ export default function ModernNotesApp() {
                     {filteredNotes.map(note => (
                       <motion.div
                         key={note.id}
-                        className={`bg-white rounded-xl shadow-lg overflow-hidden ${
+                        className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden ${
                           expandedNote === note.id ? 'md:col-span-2 lg:col-span-3' : ''
                         }`}
                         initial={{ opacity: 0, y: 20 }}
@@ -363,10 +391,10 @@ export default function ModernNotesApp() {
                       >
                         <div className="p-5">
                           <div className="flex justify-between items-start">
-                            <h3 className="font-bold text-lg text-gray-800">{note.title}</h3>
+                            <h3 className="font-bold text-lg text-gray-800 dark:text-white">{note.title}</h3>
                             <button 
                               onClick={() => toggleStar(note.id)}
-                              className="text-gray-400 hover:text-yellow-500"
+                              className="text-gray-400 dark:text-gray-500 hover:text-yellow-500 dark:hover:text-yellow-400"
                             >
                               <Star 
                                 size={18} 
@@ -376,21 +404,21 @@ export default function ModernNotesApp() {
                           </div>
                           
                           <div className="flex items-center mt-2 mb-4">
-                            <span className="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded mr-2 capitalize">
+                            <span className="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-300 text-xs px-2 py-1 rounded mr-2 capitalize">
                               {note.category}
                             </span>
-                            <span className="text-xs text-gray-500">{note.date}</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-400">{note.date}</span>
                           </div>
                           
-                          <p className={`text-gray-600 ${expandedNote === note.id ? '' : 'line-clamp-3'}`}>
+                          <p className={`text-gray-600 dark:text-gray-400 ${expandedNote === note.id ? '' : 'line-clamp-3'}`}>
                             {note.content}
                           </p>
                         </div>
                         
-                        <div className="border-t border-gray-100 px-5 py-3 flex justify-between">
+                        <div className="border-t border-gray-100 dark:border-gray-700 px-5 py-3 flex justify-between">
                           <div className="flex space-x-2">
                             <button 
-                              className="text-gray-500 hover:text-indigo-600"
+                              className="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400"
                               onClick={() => setExpandedNote(expandedNote === note.id ? null : note.id)}
                             >
                               {expandedNote === note.id ? (
@@ -399,12 +427,12 @@ export default function ModernNotesApp() {
                                 <ChevronDown size={18} />
                               )}
                             </button>
-                            <button className="text-gray-500 hover:text-indigo-600">
+                            <button className="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">
                               <Tag size={18} />
                             </button>
                           </div>
                           <button 
-                            className="text-gray-500 hover:text-red-600"
+                            className="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-500"
                             onClick={() => deleteNote(note.id)}
                           >
                             Delete
@@ -420,7 +448,7 @@ export default function ModernNotesApp() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-16 bg-gray-50">
+        <section id="features" className="py-16 bg-gray-50 dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <motion.div
               className="text-center mb-12"
@@ -428,8 +456,8 @@ export default function ModernNotesApp() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Powerful Features</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">Powerful Features</h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Designed to boost your productivity and help you organize your thoughts effortlessly
               </p>
             </motion.div>
@@ -437,49 +465,49 @@ export default function ModernNotesApp() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 { 
-                  icon: <Edit size={36} className="text-indigo-600" />, 
+                  icon: <Edit size={36} className="text-indigo-600 dark:text-indigo-400" />, 
                   title: 'Easy Note-Taking', 
                   description: 'Create and edit notes with a beautiful, distraction-free interface that focuses on your content.' 
                 },
                 { 
-                  icon: <Search size={36} className="text-indigo-600" />, 
+                  icon: <Search size={36} className="text-indigo-600 dark:text-indigo-400" />, 
                   title: 'Powerful Search', 
                   description: 'Find anything instantly with our advanced search that indexes all your notes in real-time.' 
                 },
                 { 
-                  icon: <Cloud size={36} className="text-indigo-600" />, 
+                  icon: <Cloud size={36} className="text-indigo-600 dark:text-indigo-400" />, 
                   title: 'Cloud Sync', 
                   description: 'Access your notes from any device with our seamless cloud synchronization.' 
                 },
                 { 
-                  icon: <Tag size={36} className="text-indigo-600" />, 
+                  icon: <Tag size={36} className="text-indigo-600 dark:text-indigo-400" />, 
                   title: 'Smart Organization', 
                   description: 'Categorize and tag your notes for effortless organization and retrieval.' 
                 },
                 { 
-                  icon: <Folder size={36} className="text-indigo-600" />, 
+                  icon: <Folder size={36} className="text-indigo-600 dark:text-indigo-400" />, 
                   title: 'Collections', 
                   description: 'Group related notes into collections for projects, topics, or areas of interest.' 
                 },
                 { 
-                  icon: <Calendar size={36} className="text-indigo-600" />, 
+                  icon: <Calendar size={36} className="text-indigo-600 dark:text-indigo-400" />, 
                   title: 'Reminders', 
                   description: 'Set reminders for important notes so you never miss a deadline or task.' 
                 },
               ].map((feature, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 p-6 hover:shadow-xl transition-shadow"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                  <div className="bg-indigo-100 dark:bg-indigo-900/40 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
+                  <h3 className="text-xl font-semibold mb-2 dark:text-white">{feature.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -487,7 +515,7 @@ export default function ModernNotesApp() {
         </section>
 
         {/* How It Works */}
-        <section id="how-it-works" className="py-16">
+        <section id="how-it-works" className="py-16 dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <motion.div
               className="text-center mb-12"
@@ -495,8 +523,8 @@ export default function ModernNotesApp() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">How It Works</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">How It Works</h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Get started in minutes and transform how you capture and organize information
               </p>
             </motion.div>
@@ -519,8 +547,8 @@ export default function ModernNotesApp() {
                   <div className="bg-indigo-600 w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                     {step.step}
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
+                  <h3 className="text-xl font-semibold mb-2 dark:text-white">{step.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -528,7 +556,7 @@ export default function ModernNotesApp() {
         </section>
 
         {/* Testimonials */}
-        <section id="testimonials" className="py-16 bg-indigo-50">
+        <section id="testimonials" className="py-16 bg-indigo-50 dark:bg-gray-800">
           <div className="container mx-auto px-4">
             <motion.div
               className="text-center mb-12"
@@ -536,8 +564,8 @@ export default function ModernNotesApp() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">What Our Users Say</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">What Our Users Say</h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Join thousands of satisfied users who transformed their productivity with NotionNotes
               </p>
             </motion.div>
@@ -567,7 +595,7 @@ export default function ModernNotesApp() {
               ].map((testimonial, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white rounded-xl shadow-lg p-6"
+                  className="bg-white dark:bg-gray-700 rounded-xl shadow-lg dark:shadow-gray-900/50 p-6"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -582,12 +610,12 @@ export default function ModernNotesApp() {
                       />
                     ))}
                   </div>
-                  <p className="text-gray-600 italic mb-4">{testimonial.quote}</p>
+                  <p className="text-gray-600 dark:text-gray-300 italic mb-4">{testimonial.quote}</p>
                   <div className="flex items-center">
-                    <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16" />
+                    <div className="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-16 h-16" />
                     <div className="ml-4">
-                      <h4 className="font-semibold">{testimonial.author}</h4>
-                      <p className="text-gray-600 text-sm">{testimonial.role}</p>
+                      <h4 className="font-semibold dark:text-white">{testimonial.author}</h4>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">{testimonial.role}</p>
                     </div>
                   </div>
                 </motion.div>
