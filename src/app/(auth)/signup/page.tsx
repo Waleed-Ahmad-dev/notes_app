@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/router';
 const MotionButton = motion(Button);
 
 const formVariants = {
@@ -28,6 +29,7 @@ export default function SignUpPage() {
      const [password, setPassword] = useState('');
      const [errors, setErrors] = useState({ username: '', email: '', password: '' });
      const [isSubmitting, setIsSubmitting] = useState(false);
+     const router = useRouter();
 
      const handleSubmit = async (e: React.FormEvent) => {
           e.preventDefault();
@@ -47,7 +49,10 @@ export default function SignUpPage() {
                     const data = await response.json();
                     setErrors({ ...errors, [data.field]: data.error });
                } else {
-                    alert('Registration successful! Please check your email to verify your account.');
+                    // Store email in local storage
+                    localStorage.setItem('pendingVerificationEmail', email);
+                    // Redirect to verify-email page
+                    router.push('/verify-email');
                }
           } catch (error) {
                console.error(error);
