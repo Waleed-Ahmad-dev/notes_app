@@ -126,7 +126,7 @@ export default function SignUpPage() {
                          <motion.div variants={inputVariants}>
                               <MotionButton
                                    type="submit"
-                                   className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 transition-all duration-300 rounded-md"
+                                   className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 transition-all duration-300 rounded-md cursor-pointer"
                                    disabled={isSubmitting}
                                    whileHover={{ scale: 1.05 }}
                               >
