@@ -83,7 +83,7 @@ function App() {
         <HeroSection notes={notes} />
         <NotesSection 
           categories={categories}
-          notes={notes}
+          notes={notes.map(note => ({ ...note, userId: "", createdAt: new Date(note.date), updatedAt: new Date(note.date) }))}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           createNoteVisible={createNoteVisible}
@@ -95,7 +95,12 @@ function App() {
           toggleStar={toggleStar}
           expandedNote={expandedNote}
           setExpandedNote={setExpandedNote}
-          filteredNotes={filteredNotes}
+          filteredNotes={filteredNotes.map(note => ({
+            ...note,
+            userId: "",
+            createdAt: new Date(note.date),
+            updatedAt: new Date(note.date)
+          }))}
         />
         <FeaturesSection />
         <HowItWorksSection />
