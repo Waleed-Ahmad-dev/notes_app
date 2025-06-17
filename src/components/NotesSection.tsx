@@ -242,7 +242,7 @@ export default function NotesSection({
                                                             {note.content}
                                                        </p>
                                                   </div>
-                    
+
                                                   <div className="border-t border-gray-100 dark:border-gray-700 px-5 py-3 flex justify-between">
                                                        <div className="flex space-x-2">
                                                             <button 
