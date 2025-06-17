@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 const MotionButton = motion(Button);
 
 const formVariants = {
@@ -130,7 +130,7 @@ export default function SignUpPage() {
                                    disabled={isSubmitting}
                                    whileHover={{ scale: 1.05 }}
                               >
-                                   {isSubmitting ? 'Logging In...' : 'Login'}
+                                   {isSubmitting ? 'Signing Up...' : 'Sign Up'}
                               </MotionButton>
                          </motion.div>
                     </motion.form>
