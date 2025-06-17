@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+
 const MotionButton = motion(Button);
 
 const formVariants = {
@@ -46,7 +47,7 @@ export default function LoginPage() {
                     const data = await response.json();
                     setErrors({ ...errors, general: data.error });
                } else {
-                    alert('Login successful!');
+                    alert('Login successful!'); // Replace with actual redirect logic
                }
           } catch (error) {
                console.error(error);
@@ -100,11 +101,17 @@ export default function LoginPage() {
                                    className="bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 rounded-md"
                               />
                               {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+                              <motion.div variants={inputVariants} className="text-right">
+                                   <Link href="/forgot-password" className="text-sm text-blue-400 hover:underline">
+                                        Forgot Password?
+                                   </Link>
+                              </motion.div>
                          </motion.div>
+                         {errors.general && <motion.p variants={inputVariants} className="text-red-500 text-sm mb-4 text-center">{errors.general}</motion.p>}
                          <motion.div variants={inputVariants}>
                               <MotionButton
                                    type="submit"
-                                   className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 transition-all duration-300 rounded-md cursor-pointer"
+                                   className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 transition-all duration-300 rounded-md"
                                    disabled={isSubmitting}
                                    whileHover={{ scale: 1.05 }}
                               >
