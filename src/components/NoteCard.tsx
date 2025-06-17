@@ -1,4 +1,3 @@
-// components/NoteCard.tsx
 import { Note } from '@prisma/client';
 import { motion } from 'framer-motion';
 import { Star, Tag, ChevronUp, ChevronDown } from 'react-feather';
