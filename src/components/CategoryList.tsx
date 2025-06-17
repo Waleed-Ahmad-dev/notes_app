@@ -1,5 +1,3 @@
-// components/CategoryList.tsx
-
 import { Category } from "@/utils/types";
 
 export default function CategoryList({
