@@ -1,4 +1,3 @@
-// components/EmptyState.tsx
 import { motion } from 'framer-motion';
 import { Edit } from 'react-feather';
 
