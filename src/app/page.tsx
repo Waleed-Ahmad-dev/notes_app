@@ -11,7 +11,6 @@ import TestimonialsSection from '@/components/LandingPage/TestimonialsSection';
 import { useState } from 'react';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [createNoteVisible, setCreateNoteVisible] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
@@ -68,10 +67,8 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 ${darkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800`}>
       <Navbar
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
       />

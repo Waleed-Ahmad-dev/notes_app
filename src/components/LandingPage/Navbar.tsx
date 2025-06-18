@@ -1,14 +1,12 @@
 import { motion } from 'framer-motion';
-import { BookOpen, Sun, Moon, Menu, X, ArrowRight } from 'react-feather';
+import { BookOpen, Menu, X, ArrowRight } from 'react-feather';
 
 interface NavbarProps {
-     darkMode: boolean;
-     setDarkMode: (value: boolean) => void;
      mobileMenuOpen: boolean;
      setMobileMenuOpen: (value: boolean) => void;
 }
 
-export default function Navbar({ darkMode, setDarkMode, mobileMenuOpen, setMobileMenuOpen }: NavbarProps) {
+export default function Navbar({ mobileMenuOpen, setMobileMenuOpen }: NavbarProps) {
      return (
           <motion.nav 
                className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm dark:bg-gray-800/80 dark:shadow-gray-900/50"
@@ -28,27 +26,13 @@ export default function Navbar({ darkMode, setDarkMode, mobileMenuOpen, setMobil
                          <a href="#features" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors">Features</a>
                          <a href="#how-it-works" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors">How It Works</a>
                          <a href="#testimonials" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors">Testimonials</a>
-          
-                         <button 
-                              onClick={() => setDarkMode(!darkMode)}
-                              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                         >
-                              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-                         </button>
-          
+
                          <button className="bg-indigo-600 dark:bg-indigo-700 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors flex items-center">
                               Get Started <ArrowRight size={16} className="ml-2" />
                          </button>
                     </div>
 
                     <div className="flex items-center space-x-4 md:hidden">
-                         <button 
-                              onClick={() => setDarkMode(!darkMode)}
-                              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-300"
-                         >
-                              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-                         </button>
-          
                          <button 
                               className="text-gray-600 dark:text-gray-300"
                               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
