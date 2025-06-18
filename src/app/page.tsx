@@ -8,6 +8,7 @@ import HowItWorksSection from '@/components/LandingPage/HowItWorksSection';
 import Navbar from '@/components/LandingPage/Navbar';
 import NotesSection from '@/components/LandingPage/NotesSection/NotesSection';
 import TestimonialsSection from '@/components/LandingPage/TestimonialsSection';
+import { useRouter } from 'next/navigation';
 import { useState, useMemo, useCallback } from 'react';
 
 // Static categories moved outside component
@@ -36,6 +37,7 @@ function App() {
     content: '',
     category: 'personal'
   });
+  const router = useRouter();
 
   const [notes, setNotes] = useState(INITIAL_NOTES);
 
@@ -102,7 +104,11 @@ function App() {
       />
 
       <main className="pt-20 pb-16">
-        <HeroSection notes={notes} />
+        <HeroSection
+          notes={notes} 
+          onSignup={() => router.push('/signup')}
+          onLogin={() => router.push('/login')}
+        />
         <NotesSection
           categories={CATEGORIES}
           notes={mappedNotes}
