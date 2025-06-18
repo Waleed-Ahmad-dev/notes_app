@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { BookOpen, Menu, X, ArrowRight } from 'react-feather';
+import { useRouter } from 'next/navigation';
 
 interface NavbarProps {
      mobileMenuOpen: boolean;
@@ -7,6 +8,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ mobileMenuOpen, setMobileMenuOpen }: NavbarProps) {
+     const router = useRouter();
      const navLinks = [
           { name: 'Features', href: '#features' },
           { name: 'How It Works', href: '#how-it-works' },
@@ -60,6 +62,7 @@ export default function Navbar({ mobileMenuOpen, setMobileMenuOpen }: NavbarProp
                          className="hidden md:flex items-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-2.5 rounded-xl shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 group"
                          whileHover={{ scale: 1.05 }}
                          whileTap={{ scale: 0.95 }}
+                         onClick={() => router.push("/signup")}
                     >
                          Get Started
                          <motion.span
