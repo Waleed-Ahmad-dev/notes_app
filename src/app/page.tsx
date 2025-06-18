@@ -1,13 +1,13 @@
 "use client";
 
-import CTASection from '@/components/CTASection';
-import FeaturesSection from '@/components/FeaturesSection';
-import Footer from '@/components/Footer';
-import HeroSection from '@/components/HeroSection';
-import HowItWorksSection from '@/components/HowItWorksSection';
-import Navbar from '@/components/Navbar';
-import NotesSection from '@/components/NotesSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
+import CTASection from '@/components/LandingPage/CTASection';
+import FeaturesSection from '@/components/LandingPage/FeaturesSection';
+import Footer from '@/components/LandingPage/Footer';
+import HeroSection from '@/components/LandingPage/HeroSection';
+import HowItWorksSection from '@/components/LandingPage/HowItWorksSection';
+import Navbar from '@/components/LandingPage/Navbar';
+import NotesSection from '@/components/LandingPage/NotesSection/NotesSection';
+import TestimonialsSection from '@/components/LandingPage/TestimonialsSection';
 import { useState } from 'react';
 
 
