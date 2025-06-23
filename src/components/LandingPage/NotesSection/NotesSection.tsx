@@ -36,37 +36,33 @@ export default function NotesSection({
      filteredNotes: Note[];
 }) {
      return (
-          <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
+          <section className="py-16">
                <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row gap-8">
                          <div className="md:w-1/4">
-                              <div className="bg-white rounded-xl shadow-lg p-4 transition-all duration-300 hover:shadow-xl border border-gray-200">
-                                   <Sidebar 
-                                        categories={categories}
-                                        activeTab={activeTab}
-                                        setActiveTab={setActiveTab}
-                                        setCreateNoteVisible={setCreateNoteVisible}
-                                   />
-                              </div>
+                              <Sidebar 
+                                   categories={categories}
+                                   activeTab={activeTab}
+                                   setActiveTab={setActiveTab}
+                                   setCreateNoteVisible={setCreateNoteVisible}
+                              />
                          </div>
 
                          <div className="md:w-3/4">
-                              <div className="bg-white rounded-xl shadow-lg p-4 transition-all duration-300 hover:shadow-xl border border-gray-200">
-                                   <MainContent 
-                                        categories={categories}
-                                        activeTab={activeTab}
-                                        createNoteVisible={createNoteVisible}
-                                        setCreateNoteVisible={setCreateNoteVisible}
-                                        newNote={newNote}
-                                        setNewNote={setNewNote}
-                                        addNote={addNote}
-                                        filteredNotes={filteredNotes}
-                                        expandedNote={expandedNote}
-                                        setExpandedNote={setExpandedNote}
-                                        deleteNote={deleteNote}
-                                        toggleStar={toggleStar}
-                                   />
-                              </div>
+                              <MainContent 
+                                   categories={categories}
+                                   activeTab={activeTab}
+                                   createNoteVisible={createNoteVisible}
+                                   setCreateNoteVisible={setCreateNoteVisible}
+                                   newNote={newNote}
+                                   setNewNote={setNewNote}
+                                   addNote={addNote}
+                                   filteredNotes={filteredNotes}
+                                   expandedNote={expandedNote}
+                                   setExpandedNote={setExpandedNote}
+                                   deleteNote={deleteNote}
+                                   toggleStar={toggleStar}
+                              />
                          </div>
                     </div>
                </div>
