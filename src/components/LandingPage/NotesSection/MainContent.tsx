@@ -34,17 +34,27 @@ export default function MainContent({
 }) {
      return (
           <div className="md:w-3/4">
-               <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">
                          {categories.find(c => c.id === activeTab)?.name || 'All Notes'}
                     </h2>
-                    <div className="relative">
+                    <div className="relative w-full md:w-auto">
                          <input 
                               type="text" 
                               placeholder="Search notes..." 
-                              className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500"
+                              className="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500
+                              border border-transparent hover:border-gray-300 dark:hover:border-gray-500
+                              transition-all duration-200 ease-in-out
+                              hover:shadow-sm dark:hover:shadow-gray-700/50
+                              peer"
                          />
-                         <Search size={18} className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500" />
+                         <Search 
+                              size={18} 
+                              className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500 
+                              peer-focus:text-indigo-500 dark:peer-focus:text-indigo-400
+                              peer-hover:text-gray-500 dark:peer-hover:text-gray-400
+                              transition-colors duration-200" 
+                         />
                     </div>
                </div>
 
