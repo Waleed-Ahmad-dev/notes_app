@@ -25,6 +25,14 @@ const INITIAL_NOTES = [
   { id: "3", title: 'Project Ideas', content: 'New mobile app concept for productivity tracking', category: 'ideas', date: '2023-06-10', starred: true },
 ];
 
+// Precompute mapped initial notes
+const MAPPED_INITIAL_NOTES = INITIAL_NOTES.map(note => ({
+  ...note,
+  userId: "",
+  createdAt: new Date(note.date),
+  updatedAt: new Date(note.date)
+}));
+
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [createNoteVisible, setCreateNoteVisible] = useState(false);
@@ -37,15 +45,15 @@ function App() {
   });
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const router = useRouter();
-  const [notes, setNotes] = useState(INITIAL_NOTES);
+  const [notes, setNotes] = useState(MAPPED_INITIAL_NOTES);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+  }, []);
 
   const filteredNotes = useMemo(() => (
     activeTab === 'all'
@@ -53,33 +61,19 @@ function App() {
       : notes.filter(note => note.category === activeTab)
   ), [activeTab, notes]);
 
-  const mappedNotes = useMemo(() => (
-    notes.map(note => ({
-      ...note,
-      userId: "",
-      createdAt: new Date(note.date),
-      updatedAt: new Date(note.date)
-    }))
-  ), [notes]);
-
-  const mappedFilteredNotes = useMemo(() => (
-    filteredNotes.map(note => ({
-      ...note,
-      userId: "",
-      createdAt: new Date(note.date),
-      updatedAt: new Date(note.date)
-    }))
-  ), [filteredNotes]);
-
   const addNote = useCallback(() => {
-    if (newNote.title.trim() === '') return;
+    if (!newNote.title.trim()) return;
+    
     const note = {
       id: Date.now().toString(),
       title: newNote.title,
       content: newNote.content,
       category: newNote.category,
       date: new Date().toISOString().split('T')[0],
-      starred: false
+      starred: false,
+      userId: "",
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
 
     setNotes(prev => [note, ...prev]);
@@ -98,6 +92,9 @@ function App() {
     ));
   }, []);
 
+  const onSignup = useCallback(() => router.push('/signup'), [router]);
+  const onLogin = useCallback(() => router.push('/login'), [router]);
+
   return (
     <div className={`min-h-screen transition-colors duration-300 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800`}>
       <Navbar
@@ -109,13 +106,13 @@ function App() {
 
       <main className="pt-20 pb-16">
         <HeroSection
-          notes={notes}
-          onSignup={() => router.push('/signup')}
-          onLogin={() => router.push('/login')}
+          notes={INITIAL_NOTES}
+          onSignup={onSignup}
+          onLogin={onLogin}
         />
         <NotesSection
           categories={CATEGORIES}
-          notes={mappedNotes}
+          notes={notes}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           createNoteVisible={createNoteVisible}
@@ -127,7 +124,7 @@ function App() {
           toggleStar={toggleStar}
           expandedNote={expandedNote}
           setExpandedNote={setExpandedNote}
-          filteredNotes={mappedFilteredNotes}
+          filteredNotes={filteredNotes}
         />
         <FeaturesSection />
         <HowItWorksSection />
