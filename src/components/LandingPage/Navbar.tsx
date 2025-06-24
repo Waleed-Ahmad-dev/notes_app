@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { BookOpen, Menu, X, ArrowRight, Moon, Sun } from 'react-feather';
 import { useRouter } from 'next/navigation';
-import { useMemo, useCallback, memo } from 'react';
+import { useCallback, memo } from 'react';
 
 interface NavbarProps {
      mobileMenuOpen: boolean;
@@ -12,7 +12,7 @@ interface NavbarProps {
      toggleTheme: () => void;
 }
 
-const NavLinks = [
+const NAV_LINKS = [
      { name: 'Features', href: '#features' },
      { name: 'How It Works', href: '#how-it-works' },
      { name: 'Testimonials', href: '#testimonials' },
@@ -35,69 +35,8 @@ const Navbar = memo(({
      }, [router]);
 
      const toggleMobileMenu = useCallback(() => {
-          setMobileMenuOpen((prev: boolean): boolean => !prev);
+          setMobileMenuOpen(prev => !prev);
      }, [setMobileMenuOpen]);
-
-     const MobileMenu = useMemo(() => (
-          mobileMenuOpen && (
-               <motion.div
-                    className="md:hidden bg-white dark:bg-gray-900 py-4 px-4 border-t dark:border-gray-800"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-               >
-                    <div className="flex flex-col space-y-4">
-                         {NavLinks.map((link) => (
-                              <motion.a
-                                   key={link.name}
-                                   href={link.href}
-                                   className="text-gray-600 dark:text-gray-300 font-medium py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                                   whileHover={{
-                                        x: 5,
-                                        color: '#7c3aed'
-                                   }}
-                                   whileTap={{ scale: 0.98 }}
-                                   onClick={closeMobileMenu}
-                              >
-                                   {link.name}
-                              </motion.a>
-                         ))}
-                         <motion.button
-                              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-3 rounded-xl mt-2 flex items-center justify-center shadow-lg"
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                              onClick={closeMobileMenu}
-                         >
-                              Get Started
-                              <ArrowRight size={18} className="ml-2" />
-                         </motion.button>
-                    </div>
-               </motion.div>
-          )
-     ), [mobileMenuOpen, closeMobileMenu]);
-
-     const DesktopNavLinks = useMemo(() => (
-          NavLinks.map((link) => (
-               <motion.a
-                    key={link.name}
-                    href={link.href}
-                    className="relative text-gray-600 dark:text-gray-300 font-medium px-1 py-2"
-                    whileHover={{ color: '#7c3aed' }}
-                    whileTap={{ scale: 0.95 }}
-               >
-                    {link.name}
-                    <motion.div
-                         className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500 dark:bg-indigo-400 rounded-full"
-                         initial={{ scaleX: 0 }}
-                         whileHover={{
-                              scaleX: 1,
-                              transition: { duration: 0.3, ease: "easeOut" }
-                         }}
-                    />
-               </motion.a>
-          ))
-     ), []);
 
      return (
           <motion.nav
@@ -121,7 +60,25 @@ const Navbar = memo(({
                     </motion.div>
 
                     <div className="hidden md:flex space-x-8 items-center">
-                         {DesktopNavLinks}
+                         {NAV_LINKS.map((link) => (
+                              <motion.a
+                                   key={link.name}
+                                   href={link.href}
+                                   className="relative text-gray-600 dark:text-gray-300 font-medium px-1 py-2"
+                                   whileHover={{ color: '#7c3aed' }}
+                                   whileTap={{ scale: 0.95 }}
+                              >
+                                   {link.name}
+                                   <motion.div
+                                        className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500 dark:bg-indigo-400 rounded-full"
+                                        initial={{ scaleX: 0 }}
+                                        whileHover={{
+                                             scaleX: 1,
+                                             transition: { duration: 0.3, ease: "easeOut" }
+                                        }}
+                                   />
+                              </motion.a>
+                         ))}
                     </div>
 
                     <div className="flex items-center space-x-4">
@@ -155,7 +112,6 @@ const Navbar = memo(({
                               </motion.button>
                          </div>
 
-                         {/* Mobile Dark Mode Toggle (Added next to hamburger) */}
                          <motion.button
                               className="md:hidden text-gray-600 dark:text-gray-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                               onClick={toggleTheme}
@@ -180,7 +136,42 @@ const Navbar = memo(({
                     </div>
                </div>
 
-               {MobileMenu}
+               {mobileMenuOpen && (
+                    <motion.div
+                         className="md:hidden bg-white dark:bg-gray-900 py-4 px-4 border-t dark:border-gray-800"
+                         initial={{ opacity: 0, height: 0 }}
+                         animate={{ opacity: 1, height: 'auto' }}
+                         exit={{ opacity: 0, height: 0 }}
+                         transition={{ duration: 0.3 }}
+                    >
+                         <div className="flex flex-col space-y-4">
+                              {NAV_LINKS.map((link) => (
+                                   <motion.a
+                                        key={link.name}
+                                        href={link.href}
+                                        className="text-gray-600 dark:text-gray-300 font-medium py-2 px-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                        whileHover={{
+                                             x: 5,
+                                             color: '#7c3aed'
+                                        }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={closeMobileMenu}
+                                   >
+                                        {link.name}
+                                   </motion.a>
+                              ))}
+                              <motion.button
+                                   className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-3 rounded-xl mt-2 flex items-center justify-center shadow-lg"
+                                   whileHover={{ scale: 1.02 }}
+                                   whileTap={{ scale: 0.98 }}
+                                   onClick={handleGetStarted}
+                              >
+                                   Get Started
+                                   <ArrowRight size={18} className="ml-2" />
+                              </motion.button>
+                         </div>
+                    </motion.div>
+               )}
           </motion.nav>
      );
 });
