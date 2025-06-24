@@ -39,26 +39,26 @@ export default function MainContent({
                          {categories.find(c => c.id === activeTab)?.name || 'All Notes'}
                     </h2>
                     <div className="relative w-full md:w-auto">
-                         <input 
-                              type="text" 
-                              placeholder="Search notes..." 
+                         <input
+                              type="text"
+                              placeholder="Search notes..."
                               className="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500
-                              border border-transparent hover:border-gray-300 dark:hover:border-gray-500
-                              transition-all duration-200 ease-in-out
-                              hover:shadow-sm dark:hover:shadow-gray-700/50
-                              peer"
+                                   border border-transparent hover:border-gray-300 dark:hover:border-gray-500
+                                   transition-all duration-200 ease-in-out
+                                   hover:shadow-sm dark:hover:shadow-gray-700/50
+                                   peer"
                          />
-                         <Search 
-                              size={18} 
-                              className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500 
-                              peer-focus:text-indigo-500 dark:peer-focus:text-indigo-400
-                              peer-hover:text-gray-500 dark:peer-hover:text-gray-400
-                              transition-colors duration-200" 
+                         <Search
+                              size={18}
+                              className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500
+                                   peer-focus:text-indigo-500 dark:peer-focus:text-indigo-400
+                                   peer-hover:text-gray-500 dark:peer-hover:text-gray-400
+                                   transition-colors duration-200"
                          />
                     </div>
                </div>
 
-               <CreateNoteForm 
+               <CreateNoteForm
                     visible={createNoteVisible}
                     newNote={newNote}
                     setNewNote={setNewNote}
@@ -68,8 +68,8 @@ export default function MainContent({
 
                {filteredNotes.length === 0 ? (
                     <EmptyState onCreateNote={() => setCreateNoteVisible(true)} />
-               ) : (
-                    <NotesGrid 
+                    ) : (
+                    <NotesGrid
                          notes={filteredNotes}
                          expandedNote={expandedNote}
                          setExpandedNote={setExpandedNote}

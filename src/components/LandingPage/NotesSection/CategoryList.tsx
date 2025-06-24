@@ -17,9 +17,9 @@ export default function CategoryList({
                          className={
                               `flex justify-between items-center w-full p-3 rounded-lg transition-all duration-200
                               ${
-                                   activeTab === category.id
-                                        ? 'bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 shadow-[inset_3px_0_0_0] shadow-indigo-500 dark:shadow-indigo-400'
-                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700/80'
+                              activeTab === category.id
+                                   ? 'bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 shadow-[inset_3px_0_0_0] shadow-indigo-500 dark:shadow-indigo-400'
+                                   : 'hover:bg-gray-100 dark:hover:bg-gray-700/80'
                               }`
                          }
                          onClick={() => setActiveTab(category.id)}

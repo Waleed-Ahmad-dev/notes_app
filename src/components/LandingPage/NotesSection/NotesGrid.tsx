@@ -17,7 +17,7 @@ export default function NotesGrid({
      return (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {notes.map(note => (
-                    <div 
+                    <div
                          key={note.id}
                          className={`
                               transition-all duration-300 ease-in-out

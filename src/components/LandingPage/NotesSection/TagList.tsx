@@ -2,12 +2,12 @@ import { useState } from "react";
 
 export default function TagList() {
      const [activeTag, setActiveTag] = useState<string | null>(null);
-     
+
      const tags = ['Important', 'To-Do', 'Ideas', 'Meeting', 'Personal'];
 
      return (
           <div className="mt-8">
-               <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-3">Tags</h3>
+               <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-3 transition-colors duration-300">Tags</h3>
                <div className="flex flex-wrap gap-2">
                     {tags.map(tag => (
                          <button
@@ -33,8 +33,8 @@ export default function TagList() {
                                    
                                    /* Active state styles */
                                    ${
-                                        activeTag === tag 
-                                        ? 'bg-blue-600 text-white shadow-inner hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600' 
+                                        activeTag === tag
+                                        ? 'bg-blue-600 text-white shadow-inner hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600'
                                         : ''
                                    }
                                    

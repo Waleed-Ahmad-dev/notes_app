@@ -57,7 +57,7 @@ export default function HeroSection({ notes, onSignup, onLogin }: HeroSectionPro
                                         Get Started
                                    </motion.button>
                                    <motion.button
-                                        whileHover={{ 
+                                        whileHover={{
                                              scale: 1.05,
                                              backgroundColor: 'rgba(255,255,255,0.15)'
                                         }}
@@ -70,7 +70,7 @@ export default function HeroSection({ notes, onSignup, onLogin }: HeroSectionPro
                               </motion.div>
                          </div>
 
-                         <motion.div 
+                         <motion.div
                               className="w-[95vw] max-w-full mx-auto md:w-1/2 relative"
                               initial={{ opacity: 0, scale: 0.9 }}
                               animate={{ opacity: 1, scale: 1 }}
@@ -92,7 +92,7 @@ export default function HeroSection({ notes, onSignup, onLogin }: HeroSectionPro
                                         {notes.slice(0, 3).map(note => (
                                              <motion.div
                                                   key={note.id}
-                                                  whileHover={{ 
+                                                  whileHover={{
                                                        y: -5,
                                                        backgroundColor: 'rgba(255,255,255,0.15)'
                                                   }}
@@ -108,12 +108,12 @@ export default function HeroSection({ notes, onSignup, onLogin }: HeroSectionPro
                                                             whileTap={{ scale: 0.7 }}
                                                             className="focus:outline-none"
                                                        >
-                                                            <Star 
-                                                                 size={clamp(12, 14, 16)} 
-                                                                 className={note.starred 
-                                                                      ? "text-yellow-400 fill-yellow-400" 
+                                                            <Star
+                                                                 size={clamp(12, 14, 16)}
+                                                                 className={note.starred
+                                                                      ? "text-yellow-400 fill-yellow-400"
                                                                       : "text-white hover:text-yellow-300 transition-colors"
-                                                                 } 
+                                                                 }
                                                             />
                                                        </motion.button>
                                                   </div>
@@ -133,24 +133,23 @@ export default function HeroSection({ notes, onSignup, onLogin }: HeroSectionPro
                                    </div>
                               </div>
 
-                              {/* Decorative elements */}
-                              <motion.div 
+                              <motion.div
                                    className="absolute -top-2 -right-2 w-12 h-12 sm:w-16 sm:h-16 md:-top-4 md:-right-4 md:w-24 md:h-24 bg-yellow-400 rounded-full opacity-20 blur-sm sm:blur md:blur-2xl"
-                                   animate={{ 
+                                   animate={{
                                         scale: [1, 1.1, 1],
                                    }}
-                                   transition={{ 
+                                   transition={{
                                         duration: 4,
                                         repeat: Infinity,
                                         repeatType: "reverse"
                                    }}
                               ></motion.div>
-                              <motion.div 
+                              <motion.div
                                    className="absolute -bottom-2 -left-2 w-16 h-16 sm:w-20 sm:h-20 md:-bottom-4 md:-left-4 md:w-32 md:h-32 bg-purple-400 rounded-full opacity-20 blur-sm sm:blur md:blur-2xl"
-                                   animate={{ 
+                                   animate={{
                                         scale: [1, 1.15, 1],
                                    }}
-                                   transition={{ 
+                                   transition={{
                                         duration: 5,
                                         repeat: Infinity,
                                         repeatType: "reverse"

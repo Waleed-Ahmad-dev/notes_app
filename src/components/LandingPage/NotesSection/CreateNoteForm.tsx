@@ -16,18 +16,18 @@ export default function CreateNoteForm({
      return (
           <AnimatePresence>
                {visible && (
-                    <motion.div 
-                         className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 p-6 mb-6 border border-gray-100 dark:border-gray-700"
+                    <motion.div
+                         className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 p-6 mb-6 border border-gray-100 dark:border-gray-700 transition-colors duration-300"
                          initial={{ opacity: 0, height: 0 }}
                          animate={{ opacity: 1, height: 'auto' }}
                          exit={{ opacity: 0, height: 0 }}
                          transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
-                         <h3 className="font-bold text-xl mb-4 dark:text-white text-gray-800 flex items-center">
+                         <h3 className="font-bold text-xl mb-4 dark:text-white text-gray-800 flex items-center transition-colors duration-300">
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
                                    <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
                               </svg>
-                              Create New Note
+                                   Create New Note
                          </h3>
                          <div className="space-y-5">
                               <input
@@ -56,13 +56,13 @@ export default function CreateNoteForm({
                                         <option value="travel">Travel</option>
                                    </select>
                                    <div className="flex space-x-3">
-                                        <motion.button 
+                                        <motion.button
                                              className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-lg font-medium w-full sm:w-auto flex-1 transition-colors duration-200"
-                                             whileHover={{ 
+                                             whileHover={{
                                                   backgroundColor: '#e5e7eb',
                                                   scale: 1.02
                                              }}
-                                             whileTap={{ 
+                                             whileTap={{
                                                   scale: 0.98,
                                                   backgroundColor: '#d1d5db'
                                              }}
@@ -70,13 +70,13 @@ export default function CreateNoteForm({
                                         >
                                              Cancel
                                         </motion.button>
-                                        <motion.button 
+                                        <motion.button
                                              className="bg-indigo-600 dark:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium w-full sm:w-auto flex-1 transition-colors duration-200"
-                                             whileHover={{ 
+                                             whileHover={{
                                                   backgroundColor: '#4f46e5',
                                                   scale: 1.02
                                              }}
-                                             whileTap={{ 
+                                             whileTap={{
                                                   scale: 0.98,
                                                   backgroundColor: '#3730a3'
                                              }}

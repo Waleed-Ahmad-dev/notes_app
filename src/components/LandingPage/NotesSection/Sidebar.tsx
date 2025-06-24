@@ -19,27 +19,26 @@ export default function Sidebar({
      const [isHovered, setIsHovered] = useState(false);
 
      return (
-          <motion.div 
-               className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 p-6 sticky top-24 border border-gray-200 dark:border-gray-700"
+          <motion.div
+               className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 p-6 sticky top-24 border border-gray-200 dark:border-gray-700 transition-colors duration-300"
                initial={{ opacity: 0, x: -20 }}
                whileInView={{ opacity: 1, x: 0 }}
                viewport={{ once: true }}
-               whileHover={{ 
+               whileHover={{
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                     borderColor: 'rgba(99, 102, 241, 0.5)',
                     y: -3
                }}
-               transition={{ 
-                    duration: 0.3, 
+               transition={{
+                    duration: 0.3,
                     ease: 'easeOut',
                     y: { type: 'spring', stiffness: 300 }
                }}
                onHoverStart={() => setIsHovered(true)}
                onHoverEnd={() => setIsHovered(false)}
           >
-               {/* Subtle glow effect when hovered */}
                {isHovered && (
-                    <motion.div 
+                    <motion.div
                          className="absolute inset-0 rounded-xl bg-indigo-500/10 dark:bg-indigo-400/5 pointer-events-none"
                          initial={{ opacity: 0 }}
                          animate={{ opacity: 1 }}
@@ -48,9 +47,9 @@ export default function Sidebar({
                )}
 
                <div className="flex justify-between items-center mb-6">
-                    <motion.h2 
-                         className="text-xl font-bold text-gray-800 dark:text-white"
-                         whileHover={{ 
+                    <motion.h2
+                         className="text-xl font-bold text-gray-800 dark:text-white transition-colors duration-300"
+                         whileHover={{
                               x: 3,
                               textShadow: '0px 0px 8px rgba(99, 102, 241, 0.4)'
                          }}
@@ -62,11 +61,11 @@ export default function Sidebar({
                     <motion.button
                          onClick={() => setCreateNoteVisible(true)}
                          className="bg-indigo-600 dark:bg-indigo-700 text-white p-2 rounded-lg relative overflow-hidden group"
-                         whileHover={{ 
+                         whileHover={{
                               scale: 1.05,
                               backgroundColor: '#4f46e5'
                          }}
-                         whileTap={{ 
+                         whileTap={{
                               scale: 0.95,
                               backgroundColor: '#4338ca'
                          }}
@@ -74,15 +73,15 @@ export default function Sidebar({
                          aria-label="Create new note"
                     >
                          <Plus size={18} className="relative z-10 transition-transform group-hover:rotate-90 duration-300" />
-                         <motion.span 
+                         <motion.span
                               className="absolute inset-0 bg-indigo-500 dark:bg-indigo-400 opacity-0 group-hover:opacity-30"
                               initial={{ borderRadius: '50%', scale: 0 }}
-                              animate={{ 
+                              animate={{
                                    borderRadius: ['50%', '20%', '15%'],
                                    scale: 2.5,
                                    opacity: [0, 0.3, 0]
                               }}
-                              transition={{ 
+                              transition={{
                                    duration: 0.6,
                                    ease: 'easeOut'
                               }}
@@ -90,10 +89,10 @@ export default function Sidebar({
                     </motion.button>
                </div>
 
-               <CategoryList 
-                    categories={categories} 
-                    activeTab={activeTab} 
-                    setActiveTab={setActiveTab} 
+               <CategoryList
+                    categories={categories}
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
                />
 
                <motion.div
@@ -101,10 +100,10 @@ export default function Sidebar({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                     whileHover={{ y: -3 }}
-                    className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700"
+                    className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 transition-colors duration-300"
                >
-                    <motion.h3 
-                         className="text-md font-semibold text-gray-700 dark:text-gray-300 mb-3"
+                    <motion.h3
+                         className="text-md font-semibold text-gray-700 dark:text-gray-300 mb-3 transition-colors duration-300"
                          whileHover={{ x: 2 }}
                     >
                          Tags

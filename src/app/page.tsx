@@ -9,9 +9,8 @@ import Navbar from '@/components/LandingPage/Navbar';
 import NotesSection from '@/components/LandingPage/NotesSection/NotesSection';
 import TestimonialsSection from '@/components/LandingPage/TestimonialsSection';
 import { useRouter } from 'next/navigation';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 
-// Static categories moved outside component
 const CATEGORIES = [
   { id: 'all', name: 'All Notes', icon: '📝', count: 12 },
   { id: 'work', name: 'Work', icon: '💼', count: 5 },
@@ -20,7 +19,6 @@ const CATEGORIES = [
   { id: 'travel', name: 'Travel', icon: '✈️', count: 0 },
 ];
 
-// Initial notes data
 const INITIAL_NOTES = [
   { id: "1", title: 'Meeting Notes', content: 'Discussed project timeline with team members', category: 'work', date: '2023-06-15', starred: true },
   { id: "2", title: 'Shopping List', content: 'Milk, Eggs, Bread, Fruits, Vegetables', category: 'personal', date: '2023-06-14', starred: false },
@@ -37,38 +35,42 @@ function App() {
     content: '',
     category: 'personal'
   });
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const router = useRouter();
-
   const [notes, setNotes] = useState(INITIAL_NOTES);
 
-  // Memoized filtered notes
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
   const filteredNotes = useMemo(() => (
     activeTab === 'all'
       ? notes
       : notes.filter(note => note.category === activeTab)
   ), [activeTab, notes]);
 
-  // Memoized mapped notes
   const mappedNotes = useMemo(() => (
-    notes.map(note => ({ 
-      ...note, 
-      userId: "", 
-      createdAt: new Date(note.date), 
-      updatedAt: new Date(note.date) 
+    notes.map(note => ({
+      ...note,
+      userId: "",
+      createdAt: new Date(note.date),
+      updatedAt: new Date(note.date)
     }))
   ), [notes]);
 
-  // Memoized mapped filtered notes
   const mappedFilteredNotes = useMemo(() => (
-    filteredNotes.map(note => ({ 
-      ...note, 
-      userId: "", 
-      createdAt: new Date(note.date), 
-      updatedAt: new Date(note.date) 
+    filteredNotes.map(note => ({
+      ...note,
+      userId: "",
+      createdAt: new Date(note.date),
+      updatedAt: new Date(note.date)
     }))
   ), [filteredNotes]);
 
-  // Optimized callbacks
   const addNote = useCallback(() => {
     if (newNote.title.trim() === '') return;
     const note = {
@@ -97,15 +99,17 @@ function App() {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800`}>
+    <div className={`min-h-screen transition-colors duration-300 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800`}>
       <Navbar
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
 
       <main className="pt-20 pb-16">
         <HeroSection
-          notes={notes} 
+          notes={notes}
           onSignup={() => router.push('/signup')}
           onLogin={() => router.push('/login')}
         />

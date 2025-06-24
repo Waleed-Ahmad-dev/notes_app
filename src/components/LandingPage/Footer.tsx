@@ -2,7 +2,7 @@ import { BookOpen, GitHub, Linkedin, Instagram, Mail } from 'react-feather';
 
 export default function Footer() {
      return (
-          <footer className="bg-gradient-to-b from-gray-900 to-gray-950 text-white py-14">
+          <footer className="bg-gradient-to-b from-gray-900 to-gray-950 text-white py-14 transition-colors duration-300">
                <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
                          <div>
@@ -14,7 +14,7 @@ export default function Footer() {
                                         Notion<span className="text-indigo-400">Notes</span>
                                    </h1>
                               </div>
-                              <p className="text-gray-400 mb-6 leading-relaxed">
+                              <p className="text-gray-400 mb-6 leading-relaxed transition-colors duration-300">
                                    The modern note-taking app designed to help you capture ideas, organize thoughts, and boost productivity.
                               </p>
                               <div className="flex space-x-5">
@@ -32,9 +32,9 @@ export default function Footer() {
                                    </a>
                               </div>
                          </div>
-               
+
                          <div>
-                              <h3 className="font-bold text-lg mb-5 relative pb-2 after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r from-indigo-500 to-purple-500">Product</h3>
+                              <h3 className="font-bold text-lg mb-5 relative pb-2 after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r from-indigo-500 to-purple-500 transition-colors duration-300">Product</h3>
                               <ul className="space-y-3">
                                    <li>
                                         <a href="#" className="text-gray-400 hover:text-white transition-all duration-300 inline-block transform hover:translate-x-1 group">
@@ -64,7 +64,7 @@ export default function Footer() {
                          </div>
 
                          <div>
-                              <h3 className="font-bold text-lg mb-5 relative pb-2 after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r from-indigo-500 to-purple-500">Resources</h3>
+                              <h3 className="font-bold text-lg mb-5 relative pb-2 after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r from-indigo-500 to-purple-500 transition-colors duration-300">Resources</h3>
                               <ul className="space-y-3">
                                    <li>
                                         <a href="#" className="text-gray-400 hover:text-white transition-all duration-300 inline-block transform hover:translate-x-1 group">
@@ -92,16 +92,16 @@ export default function Footer() {
                                    </li>
                               </ul>
                          </div>
-               
+
                          <div>
-                              <h3 className="font-bold text-lg mb-5 relative pb-2 after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r from-indigo-500 to-purple-500">Subscribe</h3>
-                              <p className="text-gray-400 mb-5 leading-relaxed">
+                              <h3 className="font-bold text-lg mb-5 relative pb-2 after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r from-indigo-500 to-purple-500 transition-colors duration-300">Subscribe</h3>
+                              <p className="text-gray-400 mb-5 leading-relaxed transition-colors duration-300">
                                    Get product updates and productivity tips delivered to your inbox.
                               </p>
                               <div className="flex shadow-lg shadow-indigo-500/10 rounded-lg overflow-hidden">
-                                   <input 
-                                        type="email" 
-                                        placeholder="Your email" 
+                                   <input
+                                        type="email"
+                                        placeholder="Your email"
                                         className="bg-gray-800 text-white px-5 py-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-300"
                                    />
                                    <button className="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-3 hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 active:scale-[0.98] active:opacity-90 flex items-center justify-center">
@@ -111,13 +111,13 @@ export default function Footer() {
                                         </svg>
                                    </button>
                               </div>
-                              <p className="text-gray-500 text-xs mt-3 italic">
+                              <p className="text-gray-500 text-xs mt-3 italic transition-colors duration-300">
                                    We respect your privacy. Unsubscribe at any time.
                               </p>
                          </div>
                     </div>
 
-                    <div className="border-t border-gray-800 mt-14 pt-8 text-center text-gray-500 text-sm">
+                    <div className="border-t border-gray-800 mt-14 pt-8 text-center text-gray-500 text-sm transition-colors duration-300">
                          <div className="flex flex-col md:flex-row justify-between items-center">
                               <p>© 2025 NotionNotes. All rights reserved.</p>
                               <div className="mt-4 md:mt-0 flex space-x-6">

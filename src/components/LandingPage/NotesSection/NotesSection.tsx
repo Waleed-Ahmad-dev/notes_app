@@ -40,7 +40,7 @@ export default function NotesSection({
                <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row gap-8">
                          <div className="md:w-1/4">
-                              <Sidebar 
+                              <Sidebar
                                    categories={categories}
                                    activeTab={activeTab}
                                    setActiveTab={setActiveTab}
@@ -49,7 +49,7 @@ export default function NotesSection({
                          </div>
 
                          <div className="md:w-3/4">
-                              <MainContent 
+                              <MainContent
                                    categories={categories}
                                    activeTab={activeTab}
                                    createNoteVisible={createNoteVisible}

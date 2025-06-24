@@ -8,8 +8,8 @@ export default function CTASection() {
                          initial={{ opacity: 0, y: 20 }}
                          whileInView={{ opacity: 1, y: 0 }}
                          viewport={{ once: true }}
-                         transition={{ 
-                              type: "spring", 
+                         transition={{
+                              type: "spring",
                               stiffness: 100,
                               damping: 15
                          }}
@@ -17,13 +17,13 @@ export default function CTASection() {
                     >
                          Ready to Get Organized?
                     </motion.h2>
-                    
+
                     <motion.p
                          initial={{ opacity: 0, y: 20 }}
                          whileInView={{ opacity: 1, y: 0 }}
                          viewport={{ once: true }}
-                         transition={{ 
-                              type: "spring", 
+                         transition={{
+                              type: "spring",
                               stiffness: 100,
                               damping: 15,
                               delay: 0.1
@@ -32,13 +32,13 @@ export default function CTASection() {
                     >
                          Join thousands of users who are already organizing their thoughts with NotionNotes.
                     </motion.p>
-                    
+
                     <motion.div
                          initial={{ opacity: 0, y: 20 }}
                          whileInView={{ opacity: 1, y: 0 }}
                          viewport={{ once: true }}
-                         transition={{ 
-                              type: "spring", 
+                         transition={{
+                              type: "spring",
                               stiffness: 100,
                               damping: 15,
                               delay: 0.2
@@ -46,7 +46,7 @@ export default function CTASection() {
                          className="flex flex-col sm:flex-row justify-center gap-4"
                     >
                          <motion.button
-                              whileHover={{ 
+                              whileHover={{
                                    scale: 1.05,
                                    boxShadow: "0 10px 25px -5px rgba(255, 255, 255, 0.3)"
                               }}
@@ -57,9 +57,9 @@ export default function CTASection() {
                               <span className="relative z-10">Get Started for Free</span>
                               <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-purple-400 opacity-0 rounded-xl group-hover:opacity-10 transition-opacity duration-300"></div>
                          </motion.button>
-                         
+          
                          <motion.button
-                              whileHover={{ 
+                              whileHover={{
                                    scale: 1.05,
                                    boxShadow: "0 10px 25px -5px rgba(255, 255, 255, 0.2)"
                               }}
@@ -71,7 +71,7 @@ export default function CTASection() {
                               <div className="absolute inset-0 bg-white opacity-0 rounded-xl group-hover:opacity-5 transition-opacity duration-300"></div>
                          </motion.button>
                     </motion.div>
-                    
+
                     <motion.div
                          initial={{ opacity: 0 }}
                          whileInView={{ opacity: 1 }}
@@ -82,8 +82,8 @@ export default function CTASection() {
                          <div className="inline-flex items-center gap-2">
                               <div className="flex -space-x-3">
                                    {[...Array(5)].map((_, i) => (
-                                        <div 
-                                             key={i} 
+                                        <div
+                                             key={i}
                                              className="w-10 h-10 rounded-full bg-white border-2 border-indigo-500"
                                         />
                                    ))}
