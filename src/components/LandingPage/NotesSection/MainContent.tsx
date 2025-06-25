@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Search } from 'react-feather';
 import CreateNoteForm from './CreateNoteForm';
 import NotesGrid from './NotesGrid';
@@ -34,29 +35,37 @@ export default function MainContent({
 }) {
      return (
           <div className="md:w-3/4">
-               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">
+               <motion.div 
+                    className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+               >
+                    <motion.h2 
+                         className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500"
+                         animate={{ 
+                              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
+                         }}
+                         transition={{ 
+                              duration: 4,
+                              repeat: Infinity 
+                         }}
+                    >
                          {categories.find(c => c.id === activeTab)?.name || 'All Notes'}
-                    </h2>
+                    </motion.h2>
+
                     <div className="relative w-full md:w-auto">
                          <input
                               type="text"
                               placeholder="Search notes..."
-                              className="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-500
-                                   border border-transparent hover:border-gray-300 dark:hover:border-gray-500
-                                   transition-all duration-200 ease-in-out
-                                   hover:shadow-sm dark:hover:shadow-gray-700/50
-                                   peer"
+                              className="w-full bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-indigo-300/50 dark:focus:ring-indigo-500/50 border border-gray-200/50 dark:border-gray-700/30 transition-all duration-300 hover:shadow-lg backdrop-blur-lg"
                          />
                          <Search
-                              size={18}
-                              className="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500
-                                   peer-focus:text-indigo-500 dark:peer-focus:text-indigo-400
-                                   peer-hover:text-gray-500 dark:peer-hover:text-gray-400
-                                   transition-colors duration-200"
+                              size={20}
+                              className="absolute left-4 top-3.5 text-gray-400 dark:text-gray-500"
                          />
                     </div>
-               </div>
+               </motion.div>
 
                <CreateNoteForm
                     visible={createNoteVisible}
