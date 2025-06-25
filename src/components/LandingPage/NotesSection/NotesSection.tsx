@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Sidebar from './Sidebar';
 import MainContent from './MainContent';
+import { motion } from 'framer-motion';
 import { Category } from '@/utils/types';
 import { Note } from '@prisma/client';
 
@@ -37,8 +38,15 @@ export default function NotesSection({
 }) {
      return (
           <section className="py-16">
+               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-500/5 to-transparent -z-10" />
+
                <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row gap-8">
+                    <motion.div 
+                         className="flex flex-col md:flex-row gap-8"
+                         initial={{ opacity: 0 }}
+                         animate={{ opacity: 1 }}
+                         transition={{ duration: 0.5 }}
+                    >
                          <div className="md:w-1/4">
                               <Sidebar
                                    categories={categories}
@@ -64,7 +72,7 @@ export default function NotesSection({
                                    toggleStar={toggleStar}
                               />
                          </div>
-                    </div>
+                    </motion.div>
                </div>
           </section>
      );
