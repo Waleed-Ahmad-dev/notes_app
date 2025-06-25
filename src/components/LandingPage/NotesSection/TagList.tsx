@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function TagList() {
@@ -6,47 +7,38 @@ export default function TagList() {
      const tags = ['Important', 'To-Do', 'Ideas', 'Meeting', 'Personal'];
 
      return (
-          <div className="mt-8">
-               <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-3 transition-colors duration-300">Tags</h3>
-               <div className="flex flex-wrap gap-2">
-                    {tags.map(tag => (
-                         <button
-                              key={tag}
-                              onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-                              className={
-                                   `relative overflow-hidden
-                                   px-3 py-1.5 rounded-full text-sm font-medium
-                                   transition-all duration-200 ease-out
-                                   transform hover:scale-[1.03] active:scale-[0.98]
-                                   focus:outline-none focus:ring-2 focus:ring-offset-2
-                                   focus:ring-blue-500 focus:ring-opacity-50
-                                   dark:focus:ring-offset-gray-900
-                                   
-                                   /* Base styles */
-                                   bg-gray-100 dark:bg-gray-700
-                                   text-gray-700 dark:text-gray-300
-                                   
-                                   /* Hover styles */
-                                   hover:bg-gray-200 hover:shadow-sm
-                                   hover:shadow-gray-300
-                                   dark:hover:bg-gray-600 dark:hover:shadow-gray-800
-                                   
-                                   /* Active state styles */
-                                   ${
-                                        activeTag === tag
-                                        ? 'bg-blue-600 text-white shadow-inner hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600'
-                                        : ''
-                                   }
-                                   
-                                   /* Active pseudo-class (during click) */
-                                   active:bg-blue-500 active:shadow-inner
-                                   `
+          <div className="flex flex-wrap gap-3">
+               {tags.map((tag, index) => (
+                    <motion.button
+                         key={tag}
+                         onClick={() => setActiveTag(tag === activeTag ? null : tag)}
+                         className={`
+                              relative overflow-hidden rounded-xl px-4 py-2 text-sm font-medium
+                              transition-all duration-300 backdrop-blur-sm
+                              ${activeTag === tag
+                                   ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
+                                   : 'bg-white/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-700/70'
                               }
-                         >
-                              {tag}
-                         </button>
-                    ))}
-               </div>
+                         `}
+                         initial={{ opacity: 0, scale: 0.9 }}
+                         animate={{ opacity: 1, scale: 1 }}
+                         transition={{ delay: index * 0.05 }}
+                         whileHover={{
+                              scale: 1.05,
+                              boxShadow: activeTag !== tag ? '0 5px 15px -5px rgba(99, 102, 241, 0.3)' : undefined
+                         }}
+                         whileTap={{ scale: 0.95 }}
+                    >
+                         <span className="relative z-10">{tag}</span>
+                         {activeTag === tag && (
+                              <motion.span
+                                   className="absolute inset-0 bg-white/20"
+                                   initial={{ opacity: 0 }}
+                                   animate={{ opacity: 1 }}
+                              />
+                         )}
+                    </motion.button>
+               ))}
           </div>
      );
 }
