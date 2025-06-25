@@ -42,8 +42,8 @@ export default function HeroSection({ notes, onSignup, onLogin }: HeroSectionPro
      }));
 
      // Parallax effect for decorative elements
-     const rotateX = useTransform(mouseY, [0, window.innerHeight], [-5, 5]);
-     const rotateY = useTransform(mouseX, [0, window.innerWidth], [5, -5]);
+     const rotateX = useTransform(mouseY, [0, typeof window !== "undefined" ? window.innerHeight : 1000], [-5, 5]);
+     const rotateY = useTransform(mouseX, [0, typeof window !== "undefined" ? window.innerWidth : 1000], [5, -5]);
 
      // Handle mouse move for parallax
      const handleMouseMove = (e: React.MouseEvent) => {
